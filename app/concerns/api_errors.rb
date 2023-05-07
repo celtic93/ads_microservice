@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 module ApiErrors
   def handle_exception(error)
     case error

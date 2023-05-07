@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem 'bundler'
 gem 'i18n'
+gem 'jsonapi-serializer'
 gem 'pg'
 gem 'puma'
 gem 'rack'

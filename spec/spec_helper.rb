@@ -4,7 +4,9 @@
 ENV['RACK_ENV'] = 'test'
 
 require 'rack/test'
+require 'sequel'
 require 'factory_bot'
+require 'jsonapi/serializer'
 
 # Load all factories defined in spec/factories folder.
 FactoryBot.find_definitions
@@ -28,8 +30,13 @@ RSpec.configure do |config|
     end
   )
 
+  database = 'ads_microservice_test'
+  user     = ENV['PGUSER']
+  password = ENV['PGPASSWORD']
+  Sequel.connect(adapter: 'postgres', database: database, host: '127.0.0.1', user: user, password: password)
+
   # Configuration for database cleaning strategy using Sequel.
-  # config.around do |example|
-  #   Sequel::Model.db.transaction(rollback: :always, auto_savepoint: true) { example.run }
-  # end
+  config.around do |example|
+    Sequel::Model.db.transaction(rollback: :always, auto_savepoint: true) { example.run }
+  end
 end
