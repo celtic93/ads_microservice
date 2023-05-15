@@ -25,7 +25,7 @@ RSpec.configure do |config|
   config.include(
     Module.new do
       def app
-        App.freeze.app
+        AdsMicroservice.freeze.app
       end
     end
   )
@@ -33,7 +33,8 @@ RSpec.configure do |config|
   database = 'ads_microservice_test'
   user     = ENV['PGUSER']
   password = ENV['PGPASSWORD']
-  Sequel.connect(adapter: 'postgres', database: database, host: '127.0.0.1', user: user, password: password)
+  test_db = Sequel.connect(adapter: 'postgres', database: database, host: '127.0.0.1', user: user, password: password)
+  test_db.extension(:pagination)
 
   # Configuration for database cleaning strategy using Sequel.
   config.around do |example|

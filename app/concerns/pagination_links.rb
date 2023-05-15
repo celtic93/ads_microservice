@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PaginationLinks
   def pagination_links(scope)
     return {} if scope.page_count.zero?

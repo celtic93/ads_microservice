@@ -40,17 +40,15 @@ class AdsMicroservice < Roda
       end
 
       r.post do
-        #   result = Ads::CreateService.call(
-        #     ad: ad_params,
-        #     user: current_user
-        #   )
+        ad = Ad.create(
+          title: r.params.dig('ad', 'title'),
+          description: r.params.dig('ad', 'description'),
+          city: r.params.dig('ad', 'city'),
+          user_id: r.params.dig('ad', 'user_id')
+        )
 
-        #   if result.success?
-        #     serializer = AdSerializer.new(result.ad)
-        #     render json: serializer.serialized_json, status: :created
-        #   else
-        #     error_response(result.ad, :unprocessable_entity)
-        #   end
+        response.status = 201
+        AdSerializer.new(ad).serializable_hash.to_json
       end
     end
   end

@@ -5,6 +5,6 @@ class Ad < Sequel::Model
 
   def validate
     super
-    validates_presence %i[title description city]
+    validates_presence %i[title description city user_id]
   end
 end
